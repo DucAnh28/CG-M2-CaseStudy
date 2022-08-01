@@ -2,10 +2,11 @@ package Controller;
 
 import Model.Product.Product;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductManager {
+public class ProductManager implements Serializable {
     public static List<Product> list = new ArrayList<>();
 
     public void displayProduct(){
