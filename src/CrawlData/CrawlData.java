@@ -1,4 +1,4 @@
-package CrawlData.BookData;
+package CrawlData;
 
 public interface CrawlData {
     public void crawlStuff();

@@ -2,7 +2,7 @@ package Model.Product;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public abstract class Product implements Serializable {
     private String ID;
     private String name;
     private double price;
@@ -40,9 +40,6 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public void display(){
-        System.out.printf("%-4s%-4s%-10d", "", "id:", getID());
-        System.out.printf("%-9s", getName());
-        System.out.printf("%-7s%-10d", "price:", getPrice());
-    }
+
+    public abstract void display();
 }

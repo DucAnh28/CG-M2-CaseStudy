@@ -2,10 +2,7 @@ package Model.Product;
 
 import java.io.Serializable;
 
-public class BeautiStuff extends Product implements ProductStuff, Serializable {
-    private String ID;
-    private String name;
-    private double price;
+public class BeautiStuff extends Product implements Serializable {
 
     public BeautiStuff() {
     }
@@ -15,37 +12,10 @@ public class BeautiStuff extends Product implements ProductStuff, Serializable {
     }
 
     @Override
-    public String getID() {
-        return ID;
-    }
-
-    @Override
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public double getPrice() {
-        return price;
-    }
-
-    @Override
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    @Override
     public void display() {
-        super.display();
+        System.out.print("BeautiStuff_");
+        System.out.print("[ID: " + getID()+", ");
+        System.out.print("name: " + getName() +", ");
+        System.out.print("price: " + getPrice()+"]\n");
     }
 }

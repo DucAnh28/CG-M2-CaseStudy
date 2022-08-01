@@ -10,7 +10,10 @@ public class ProductManager implements Serializable {
     public static List<Product> list = new ArrayList<>();
 
     public void displayProduct(){
+        for (Product x: list
+             ) {
 
+        }
     }
 
     public void addProduct(Product product){
