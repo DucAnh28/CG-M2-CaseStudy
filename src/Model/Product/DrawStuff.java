@@ -1,6 +1,8 @@
 package Model.Product;
 
-public class DrawStuff extends Product implements ProductStuff{
+import java.io.Serializable;
+
+public class DrawStuff extends Product implements ProductStuff, Serializable {
     private String ID;
     private String name;
     private double price;

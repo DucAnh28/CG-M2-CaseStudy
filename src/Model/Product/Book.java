@@ -1,6 +1,8 @@
 package Model.Product;
 
-public class Book extends Product implements ProductStuff {
+import java.io.Serializable;
+
+public class Book extends Product implements ProductStuff, Serializable {
     private String ID;
     private String name;
     private String author;
@@ -9,8 +11,10 @@ public class Book extends Product implements ProductStuff {
     public Book() {
     }
 
-    public Book(String ID, String name, double price) {
+    public Book(String ID, String name, double price,String author) {
         super(ID, name, price);
+        this.author = author;
+
     }
 
     @Override

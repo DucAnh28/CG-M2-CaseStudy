@@ -1,11 +1,13 @@
 package Client;
 
+import CrawlData.BookData.CrawlData;
 import CrawlData.BookData.CrawlDataBook;
-import CrawlData.ListData.CrawlData;
+
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) {
-        CrawlData data = new CrawlDataBook();
-        data.crawlStuff();
+    public static void main(String[] args) throws IOException {
+        CrawlDataBook data = new CrawlDataBook();
+        System.out.println(data.getBooks());
     }
 }
