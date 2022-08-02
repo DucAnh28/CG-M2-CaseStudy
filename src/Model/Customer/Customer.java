@@ -7,15 +7,17 @@ public class Customer implements Serializable {
     private int age;
     private String address;
     private String email;
+    private String phoneNumber;
 
     public Customer() {
     }
 
-    public Customer(String name, int age, String address, String email) {
+    public Customer(String name, int age, String address, String email, String phoneNumber) {
         this.name = name;
         this.age = age;
         this.address = address;
         this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -48,5 +50,24 @@ public class Customer implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer[" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber=" + phoneNumber +
+                ']';
     }
 }

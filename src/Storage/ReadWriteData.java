@@ -10,8 +10,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public interface ReadWriteData {
-    void writeData(List<Product> list,String path);
+public interface ReadWriteData<E> {
+    void writeData(List<E> list,String path);
 
-    List<Product> readData(String path);
+    List<E> readData(String path);
 }

@@ -19,7 +19,7 @@ public class ReadWriteDataTxt {
 
     public void writeData(String data, String path) {
         try {
-            FileWriter fileWriter = new FileWriter("DataOfCase/" + path + ".txt");
+            FileWriter fileWriter = new FileWriter("DataOfCase/" + path + "bill.txt");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(data);
             bufferedWriter.close();
@@ -31,7 +31,7 @@ public class ReadWriteDataTxt {
 
     public String readData(String path) {
         try {
-            FileReader fileReader = new FileReader("DataOfCase/" + path + ".txt");
+            FileReader fileReader = new FileReader("DataOfCase/" + path + "bill.txt");
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String data = bufferedReader.readLine();
             fileReader.close();
@@ -42,6 +42,5 @@ public class ReadWriteDataTxt {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 }

@@ -1,7 +1,5 @@
 package Storage;
 
-import Model.Product.Product;
-
 import java.io.*;
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class ReadWriteDataBinaryFile implements ReadWriteData {
     }
 
     @Override
-    public void writeData(List<Product> list, String name) {
+    public void writeData(List list, String name) {
         try {
             FileOutputStream fos = new FileOutputStream("DataOfCase/"+name+".dap");
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -31,12 +29,12 @@ public class ReadWriteDataBinaryFile implements ReadWriteData {
     }
 
     @Override
-    public List<Product> readData(String path) {
+    public List readData(String name) {
         try {
-            FileInputStream fis = new FileInputStream("DataOfCase/"+path+".dap");
+            FileInputStream fis = new FileInputStream("DataOfCase/"+name+".dap");
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object temp = ois.readObject();
-            List<Product> list = (List<Product>) temp;
+            List list = (List) temp;
             fis.close();
             ois.close();
             return list;

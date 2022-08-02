@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Validate {
-    private static Validate instance = null
+    private static Validate instance = null;
     private static final String ACCOUNT_REGEX = "^(?=.*[a-z])(?=.*[0-9]).{8,12}$";
     private static final String PASS_REGEX = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\\W\\S]).{8,16}$";
     private static final String PHONE_REGEX = "^[(](\\+84)[)][-][0-9]{9,}$";
