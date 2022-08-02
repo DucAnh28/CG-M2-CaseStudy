@@ -5,75 +5,74 @@ import java.util.Scanner;
 
 public class RunByAdmin {
     Scanner scanner = new Scanner(System.in);
-//    public void menuProductOfAdmin() {
-//        try {
-//            do {
-//                System.out.println("╔============================================================╗");
-//                System.out.println("║         ෴  ❤️෴ Welcome DucAnh  ෴  ❤️෴           ║");
-//                System.out.println("╠============================================================╣");
-//                System.out.println("║>[1]. Thêm sản phẩm                                         ║");
-//                System.out.println("║>[2]. Sửa thông tin                                         ║");
-//                System.out.println("║>[3]. Xóa sản phẩm                                          ║");
-//                System.out.println("║>[4]. Hiển thị sản phẩm                                     ║");
-//                System.out.println("║>[5]. Thông tin khách hàng                                  ║");
-//                System.out.println("║>[6]. Doanh thu sản phẩm                                    ║");
-//                System.out.println("║>[7]. Khôi phục dữ liệu                                     ║");
-//                System.out.println("║>[0]. Đăng xuất                                             ║");
-//                System.out.println("╚============================================================╝");
-//                System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
-//                int choice = Integer.parseInt(scanner.nextLine());
-//                switch (choice) {
-//                    case 1:
-//                        menuAddProduct();
-//                        break;
-//                    case 2:
-//                        try{
-//                            System.out.print("[\uD83D\uDD0E] Nhập mã ID sản phẩm muốn sửa: ");
-//                            int id = Integer.parseInt(scanner.nextLine());
-//                            if (productFacade.checkID(id)) {
-//                                editProduct(id);
-//                                System.out.println("[\uD83D\uDC4C] Đã cập nhật thông tin sản phẩm");
-//                            } else {
-//                                System.out.println("[❌] Không có mã ID trên");
-//                                System.out.println("---------------------------------------------------");
-//                            }
-//                        } catch (InputMismatchException e) {
-//                            System.out.println("[❌] Sai kiểu dữ liệu");
-//                            System.out.println("---------------------------------------------------");
-//                        }
-//                        break;
-//                    case 3:
-//                        deleteProduct();
-//                        break;
-//                    case 4:
-//                        display();
-//                        break;
-//                    case 5:
-//                        managerUser();
-//                        break;
-//                    case 6:
-//                        storeRevenue();
-//                        break;
-//                    case 7:
-//                        System.out.println("[\uD83D\uDEA7] Vui lòng đợi trong giây lát (Don't touch anything) [\uD83D\uDEA7]");
-//                        productFacade.backUpData();
-//                        break;
-//                    case 0:
-//                        System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống ADMIN !!!");
-//                        System.out.println("-----------------------------------------------------");
-//                        new Login().loginSystem();
-//                        break;
-//                    default:
-//                        System.out.println("[❌] Không có lựa chọn trên");
-//                        break;
-//                }
-//            } while (true);
-//        } catch (Exception e) {
-//            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
-//            System.out.println("--------------------------------------------------------");
-//            menuProductOfAdmin();
-//        }
-//    }
+    public void menuProductOfAdmin() {
+        try {
+            do {
+                System.out.println("╔============================================================╗");
+                System.out.println("║           «-(¯`v´¯)-«Welcome DucAnh»-(¯`v´¯)-»             ║");
+                System.out.println("╠============================================================╣");
+                System.out.println("║<>[1]. Thêm sản phẩm                                        ║");
+                System.out.println("║<>[2]. Sửa thông tin                                        ║");
+                System.out.println("║<>[3]. Xóa sản phẩm                                         ║");
+                System.out.println("║<>[4]. Hiển thị sản phẩm                                    ║");
+                System.out.println("║<>[5]. Thông tin khách hàng                                 ║");
+                System.out.println("║<>[6]. Khôi phục dữ liệu                                    ║");
+                System.out.println("║<>[0]. Đăng xuất                                            ║");
+                System.out.println("╚============================================================╝");
+                System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
+                int choice = Integer.parseInt(scanner.nextLine());
+                switch (choice) {
+                    case 1:
+                        menuAddProduct();
+                        break;
+                    case 2:
+                        try{
+                            System.out.print("[\uD83D\uDD0E] Nhập mã ID sản phẩm muốn sửa: ");
+                            int id = Integer.parseInt(scanner.nextLine());
+                            if (productFacade.checkID(id)) {
+                                editProduct(id);
+                                System.out.println("[\uD83D\uDC4C] Đã cập nhật thông tin sản phẩm");
+                            } else {
+                                System.out.println("[❌] Không có mã ID trên");
+                                System.out.println("---------------------------------------------------");
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("[❌] Sai kiểu dữ liệu");
+                            System.out.println("---------------------------------------------------");
+                        }
+                        break;
+                    case 3:
+                        deleteProduct();
+                        break;
+                    case 4:
+                        display();
+                        break;
+                    case 5:
+                        managerUser();
+                        break;
+                    case 6:
+                        storeRevenue();
+                        break;
+                    case 7:
+                        System.out.println("[\uD83D\uDEA7] Vui lòng đợi trong giây lát (Don't touch anything) [\uD83D\uDEA7]");
+                        productFacade.backUpData();
+                        break;
+                    case 0:
+                        System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống ADMIN !!!");
+                        System.out.println("-----------------------------------------------------");
+                        new Login().loginSystem();
+                        break;
+                    default:
+                        System.out.println("[❌] Không có lựa chọn trên");
+                        break;
+                }
+            } while (true);
+        } catch (Exception e) {
+            System.out.println("[❌] Bạn nhập sai dữ liệu, mời nhập lại !!!");
+            System.out.println("--------------------------------------------------------");
+            menuProductOfAdmin();
+        }
+    }
 //
 //    public void menuAddProduct() {
 //        try {
@@ -248,42 +247,5 @@ public class RunByAdmin {
 //            managerUser();
 //        }
 //    }
-//
-//    public void storeRevenue() {
-//        try {
-//            System.out.println("╔==================================================╗");
-//            System.out.println("║      ▂ ▃ ▅ ▆ █ DOANH THU CỬA HÀNG █ ▆ ▅ ▃ ▂      ║");
-//            System.out.println("╠==================================================╣");
-//            System.out.println("║>[1]. Doanh thu theo tháng                        ║");
-//            System.out.println("║>[2]. Tổng toàn bộ doanh thu                      ║");
-//            System.out.println("║>[0]. Quay lại                                    ║");
-//            System.out.println("╚==================================================╝");
-//            System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
-//            int choice = Integer.parseInt(scanner.nextLine());
-//            switch (choice) {
-//                case 1:
-//                    System.out.print("[\uD83D\uDD0E] Nhập tháng: ");
-//                    int month = Integer.parseInt(scanner.nextLine());
-//                    if(month < 0 || month > 12) {
-//                        System.out.println("[❌] Bạn đã nhập sai tháng! Vui lòng nhập lại! VD: Từ tháng 1 -> 12");
-//                    } else {
-//                        System.out.printf("%-20s%-2s%-4s%-10.0fVND\n","[\uD83D\uDCB0] Tổng doanh thu tháng ",month,"là: ",userHistory.getTotalPriceByMonth(month));
-//                    }
-//                    break;
-//                case 2:
-//                    System.out.printf("%-20s%-12.0fVND\n","[\uD83D\uDCB0] Tổng toàn bộ doanh thu là: ",userHistory.getTotalPriceAllUser());
-//                    break;
-//                case 0:
-//                    System.out.println("[\uD83D\uDD14] Thoát");
-//                    break;
-//                default:
-//                    System.out.println("[❌] Sai lựa chon");
-//                    break;
-//            }
-//        } catch (Exception e) {
-//            System.out.println("[❌] Bạn đã nhập sai dữ liệu! Vui lòng nhập lại!");
-//            System.out.println("-----------------------------------------------------");
-//            storeRevenue();
-//        }
-//    }
+
 }
