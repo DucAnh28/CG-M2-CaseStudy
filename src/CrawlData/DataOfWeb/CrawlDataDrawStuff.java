@@ -27,6 +27,7 @@ public class CrawlDataDrawStuff implements CrawlData {
     }
 
     public List<Product> getDrawOfData(){
+        crawlStuff();
         return drawOfData;
     }
 

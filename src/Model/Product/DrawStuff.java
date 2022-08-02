@@ -13,7 +13,7 @@ public class DrawStuff extends Product implements Serializable {
 
     @Override
     public void display() {
-        System.out.print("DrawStuff:  ");
+        System.out.print("DrawStuff_");
         System.out.print("[ID: " + getID()+", ");
         System.out.print("name: " + getName() +", ");
         System.out.print("price: " + getPrice()+"]\n");

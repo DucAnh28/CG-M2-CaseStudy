@@ -28,6 +28,7 @@ public class CrawlDataBeautiStuff implements CrawlData {
     }
 
     public List<Product> getBeautiStuffData() {
+        crawlStuff();
         return beautiStuffData;
     }
 

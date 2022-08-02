@@ -27,6 +27,7 @@ public class CrawlDataBook implements CrawlData {
     }
 
     public List<Product> getBooksOfData() {
+        crawlStuff();
         return booksOfData;
     }
 
