@@ -1,6 +1,5 @@
 package CrawlData.DataOfWeb;
 
-import CrawlData.CrawlData;
 import Model.Product.DrawStuff;
 import Model.Product.Product;
 import org.jsoup.Jsoup;

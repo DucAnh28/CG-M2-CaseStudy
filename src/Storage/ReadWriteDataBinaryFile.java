@@ -11,7 +11,7 @@ public class ReadWriteDataBinaryFile implements ReadWriteData {
 
     }
 
-    public ReadWriteDataBinaryFile getInstance(){
+    public static ReadWriteDataBinaryFile getInstance(){
         if (instance == null){
             return instance = new ReadWriteDataBinaryFile();
         } else return instance;
