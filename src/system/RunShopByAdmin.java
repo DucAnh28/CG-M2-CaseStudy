@@ -236,10 +236,10 @@ public class RunShopByAdmin {
                     userManager.getNameUser(username);
                     break;
                 case 2:
-                    userInfo.displayUser();
+                    userManager.getDetailOfUser(username);
                     break;
                 case 3:
-                    userHistory.showAllHistoryUser();
+                    .showAllHistoryUser();
                     break;
                 case 4:
                     System.out.print("[\uD83D\uDD0E] Nhập tên tài khoản muốn xóa: ");

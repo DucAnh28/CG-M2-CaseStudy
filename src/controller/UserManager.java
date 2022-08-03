@@ -29,7 +29,15 @@ public class UserManager {
     public String getNameUser(String username){
         for (int i = 0; i < listUser.size(); i++) {
             if (username.equals(listUser.get(i).getUsername())){
-                return listUser.get(i).DetailOfUser()+listUser.get().toString();
+                return listUser.get(i).DetailOfUser();
+            }
+        }
+        return null;
+    }
+    public String getDetailOfUser(String username){
+        for (int i = 0; i < listUser.size(); i++) {
+            if (username.equals(listUser.get(i).getUsername())){
+                return listUser.get(i).toString();
             }
         }
         return null;
