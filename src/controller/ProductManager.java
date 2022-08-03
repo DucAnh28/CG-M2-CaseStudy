@@ -1,6 +1,7 @@
 package controller;
 
 import crawlData.ListOfProduct.ListDataCrawlProduct;
+import login.Login;
 import model.product.Bill;
 import model.product.Product;
 import storage.ReadWriteData;
@@ -17,7 +18,7 @@ public class ProductManager implements Serializable {
     private ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
     List<Product> listdatacrawl;
 
-    public static StringBuilder nameOfUser;
+    public static StringBuilder nameOfUser = Login.username;
 
     private String nameOfUser1 = nameOfUser.toString();
 //    Đặt tên người đường dẫn người dùng:
@@ -25,7 +26,11 @@ public class ProductManager implements Serializable {
         this.nameOfUser = nameOfUser;
     }
 
-    private List<Product> listProductInCart ;
+    public String getNameOfUser1() {
+        return nameOfUser1;
+    }
+
+    public List<Product> listProductInCart ;
 
     public ProductManager() {
         if(readWriteData.readData(nameOfUser1) == null) {

@@ -1,9 +1,11 @@
 package system;
 
+import controller.BillManager;
 import controller.ProductManager;
 import model.product.Bill;
 import model.product.Product;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -14,6 +16,7 @@ public class RunShopByUser {
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
     ProductManager productManager = new ProductManager();
+    BillManager billManager = new BillManager();
 
     public RunShopByUser() {
     }
@@ -154,15 +157,12 @@ public class RunShopByUser {
 
     public void payment() {
         if (productManager.showProductInCart() != null) {
-            System.out.print("[\uD83D\uDCB0] Tổng giá tiền các sản phẩm trong giỏ hàng là: "+ productManager.getTotalPrice());
+            System.out.print("[\uD83D\uDCB0] Tổng giá tiền các sản phẩm trong giỏ hàng là: " + productManager.getTotalPrice());
             System.out.print("[\uD83C\uDF81] Xác nhân thanh toán (Y/N): ");
             String result = scanner.nextLine();
             if (result.equalsIgnoreCase("Y")) {
-                Bill bill = new Bill()
-                for (Product p : cartUser) {
-                    productFacade.delete(p.getId());
-                }
-                cartUser.clear();
+                Bill bill = new Bill(productManager.getNameOfUser1(), productManager.listProductInCart, productManager.getTotalPrice(), LocalDateTime.now());
+                billManager.writeBillOfUser(bill.toString(), productManager.getNameOfUser1());
                 System.out.println("[\uD83D\uDC4C] Thanh toán hoàn tất! Xin trân trọng cảm ơn quý khách đã mua sản phẩm!!\uD83C\uDF81 \uD83D\uDC97 \uD83D\uDC97");
             } else {
                 System.out.println("[❌] Bạn cần thanh toán hóa đơn để có sản phẩm");

@@ -223,7 +223,7 @@ public class RunShopByAdmin {
     public void managerUser() {
         try {
             System.out.println("╔==================================================╗");
-            System.out.println("║    ▂ ▃ ▅ ▆ █ THÔNG TIN KHÁCH HÀNG █ ▆ ▅ ▃ ▂      ║");
+            System.out.println("║   «-(¯`v´¯)-« THÔNG TIN KHÁCH HÀNG »-(¯`v´¯)-»   ║");
             System.out.println("╠==================================================╣");
             System.out.println("║>[1]. Tài khoản người dùng theo username          ║");
             System.out.println("║>[2]. Thông tin cá nhân người dùng                ║");

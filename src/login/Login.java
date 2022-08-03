@@ -20,6 +20,7 @@ public class Login {
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
     AccountAdmin accountAdmin = new AccountAdmin();
+    public static StringBuilder username = new StringBuilder();
 
     public Login() {
     }
@@ -65,9 +66,9 @@ public class Login {
 
     public void loginManager() throws InputMismatchException {
         System.out.println("┎──────────────[ĐĂNG NHẬP]──────────────┒");
-        System.out.print("  ┠ ▹ Nhập tài khoản: ");
+        System.out.print("┠ ▹ Nhập tài khoản: ");
         String account = scanner.nextLine();
-        System.out.print("  ┠ ▹ Nhập mật khẩu: ");
+        System.out.print("┠ ▹ Nhập mật khẩu: ");
         String password = scanner1.nextLine();
         System.out.println("┖───────────────────────────────────────┚");
         checkAccount(account, password);
@@ -75,13 +76,13 @@ public class Login {
 
     public void checkAccount(String account, String password) {
         try {
-            if (checkLoginAccountAdmin(account, password)) {
+            if (account.equals(accountAdmin.getACCOUNT_NAME()) && password.equals(accountAdmin.getPASSWORD())) {
                 System.out.println("[\uD83D\uDD13] Đặng nhập hệ thống bởi ADMIN thành công !!!");
                 System.out.println("------------------------------------------------------------");
                 runShopByAdmin.menuProductOfAdmin();
             } else {
                 loginAccountUser(account, password);
-                StringBuilder username = new StringBuilder();
+                username = new StringBuilder();
                 productManager.setNameOfUser(username.append(account));
             }
         } catch (IndexOutOfBoundsException e) {
@@ -89,13 +90,6 @@ public class Login {
             System.out.println("-------------------------------------------------------");
             loginSystem();
         }
-    }
-
-    public boolean checkLoginAccountAdmin(String account, String password) {
-        if (account.equals(accountAdmin.getACCOUNT_NAME()) && password.equals(accountAdmin.getPASSWORD())) {
-            return true;
-        }
-        return false;
     }
 
     public void loginAccountUser(String account, String password) {
@@ -141,7 +135,7 @@ public class Login {
             String account = scanner.nextLine();
             if (!validate.validateAccount(account)) {
                 System.out.println("[❌] Tài khoản không hợp lệ !!!");
-                System.out.println(">[Chú ý]: Tài khoản phải từ 8 - 12 ký tự (a,1,...)");
+                System.out.println(">[Chú ý]: Tài khoản phải từ 7 đến 9 ký tự (a,1,...)");
                 System.out.println("---------------------------------------------------");
             } else {
                 accountUser = account;
