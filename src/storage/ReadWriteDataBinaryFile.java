@@ -1,12 +1,13 @@
 package storage;
 
+import model.product.Product;
+
 import java.io.*;
 import java.util.List;
 
 public class ReadWriteDataBinaryFile implements ReadWriteData {
     private static ReadWriteDataBinaryFile instance = null;
     private ReadWriteDataBinaryFile(){
-
     }
 
     public static ReadWriteDataBinaryFile getInstance(){
@@ -29,12 +30,12 @@ public class ReadWriteDataBinaryFile implements ReadWriteData {
     }
 
     @Override
-    public List readData(String name) {
+    public List<Product> readData(String name) {
         try {
             FileInputStream fis = new FileInputStream("DataOfCase/"+name+".dap");
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object temp = ois.readObject();
-            List list = (List) temp;
+            List<Product> list = (List<Product>) temp;
             fis.close();
             ois.close();
             return list;

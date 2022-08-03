@@ -2,7 +2,7 @@ package system;
 
 import controller.ProductManager;
 import controller.UserManager;
-import login.Login;
+//import login.Login;
 import model.product.BeautiStuff;
 import model.product.Book;
 import model.product.DrawStuff;
@@ -14,10 +14,10 @@ import java.util.Scanner;
 public class RunShopByAdmin {
     private UserManager userManager = new UserManager();
     Validate validate = Validate.getInstance();
-    Login login = new Login();
+    //    Login login = new Login();
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
-    private ProductManager productManager = ProductManager.getInstance();
+    private ProductManager productManager = new ProductManager();
 
     public RunShopByAdmin() {
     }
@@ -37,7 +37,7 @@ public class RunShopByAdmin {
                 System.out.println("║<>[0]. Đăng xuất                                            ║");
                 System.out.println("╚============================================================╝");
                 System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
-                int choice = Integer.parseInt(scanner.nextLine());
+                int choice = Integer.parseInt(scanner1.nextLine());
                 switch (choice) {
                     case 1:
                         productManager.displayProductInShop();
@@ -45,7 +45,10 @@ public class RunShopByAdmin {
                     case 2:
                         System.out.print("Mời bạn nhập ID:");
                         String idInShop = scanner.nextLine();
-                        productManager.checkIdOfProductInShop(idInShop);
+                        int check0 = productManager.checkIdOfProductInShop(idInShop);
+                        if (check0 != -1) {
+                            productManager.showProductInShopByID(check0);
+                        } else System.out.println("Không có sản phẩm !!");
                         break;
                     case 3:
                         try {
@@ -68,7 +71,7 @@ public class RunShopByAdmin {
                         deleteProductInCart();
                         break;
                     case 5:
-
+                        productManager.showProductInCart();
                         break;
                     case 6:
                         managerUser();
@@ -76,7 +79,7 @@ public class RunShopByAdmin {
                     case 0:
                         System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống ADMIN !!!");
                         System.out.println("-----------------------------------------------------");
-                        new Login().loginSystem();
+//                        new Login().loginSystem();
                         break;
                     default:
                         System.out.println("[❌] Không có lựa chọn trên");
@@ -104,9 +107,10 @@ public class RunShopByAdmin {
             int choiceAdd = Integer.parseInt(scanner.nextLine());
             System.out.print("Nhập username của giỏ hàng: ");
             String nameOfUser = scanner.nextLine();
+            StringBuilder nameOfUser1 = new StringBuilder(nameOfUser);
+            productManager.setNameOfUser(nameOfUser1);
             switch (choiceAdd) {
                 case 1:
-                    productManager.setNameOfUser(nameOfUser);
                     System.out.print("Nhập ID sản phẩm mới: ");
                     String idOfBook = scanner1.nextLine();
                     while (!validate.validateBookID(idOfBook)) {
@@ -125,7 +129,6 @@ public class RunShopByAdmin {
                     productManager.editProduct(index, book, nameOfUser);
                     break;
                 case 2:
-                    productManager.setNameOfUser(nameOfUser);
                     System.out.print("Nhập ID dụng cụ vẽ: ");
                     String idOfDrawStuff = scanner1.nextLine();
                     while (!validate.validateDrawStuffID(idOfDrawStuff)) {
@@ -138,14 +141,13 @@ public class RunShopByAdmin {
                     String nameDraw = scanner.nextLine();
                     System.out.print("Nhập giá dụng cụ vẽ: ");
                     double priceOfDrawS = scanner1.nextDouble();
-                    DrawStuff drawStuff = new DrawStuff(idOfDrawStuff,nameDraw,priceOfDrawS);
-                    productManager.editProduct(index,drawStuff,nameOfUser);
+                    DrawStuff drawStuff = new DrawStuff(idOfDrawStuff, nameDraw, priceOfDrawS);
+                    productManager.editProduct(index, drawStuff, nameOfUser);
                     break;
                 case 3:
-                    productManager.setNameOfUser(nameOfUser);
                     System.out.print("Nhập ID đồ làm đẹp: ");
                     String idOfBeautiStuff = scanner1.nextLine();
-                    while (!validate.validateDrawStuffID(idOfBeautiStuff)) {
+                    while (!validate.validateBeautiStuffID(idOfBeautiStuff)) {
                         System.out.print("Mời bạn nhập lại Nhập ID: ");
                         idOfBeautiStuff = scanner1.nextLine();
                     }
@@ -155,8 +157,8 @@ public class RunShopByAdmin {
                     String nameBeauti = scanner.nextLine();
                     System.out.print("Nhập giá đồ làm đẹp: ");
                     double priceOfBeautiStuff = scanner1.nextDouble();
-                    BeautiStuff beautiStuff = new BeautiStuff(idOfBeautiStuff,nameBeauti,priceOfBeautiStuff);
-                    productManager.editProduct(index,beautiStuff,nameOfUser);
+                    BeautiStuff beautiStuff = new BeautiStuff(idOfBeautiStuff, nameBeauti, priceOfBeautiStuff);
+                    productManager.editProduct(index, beautiStuff, nameOfUser);
                     break;
             }
         } catch (InputMismatchException e) {
@@ -178,16 +180,18 @@ public class RunShopByAdmin {
             int choiceAdd = Integer.parseInt(scanner.nextLine());
             System.out.print("Nhập username của khách hàng: ");
             String nameOfUser = scanner1.nextLine();
+            StringBuilder nameOfUser1 = new StringBuilder(nameOfUser);
+            productManager.setNameOfUser(nameOfUser1);
             switch (choiceAdd) {
                 case 1:
                     System.out.print("[\uD83D\uDD0E] Nhập mã ID: ");
                     String id = scanner.nextLine();
                     if (productManager.checkIdOfCart(id) != -1) {
                         int temp = productManager.checkIdOfCart(id);
-                        productManager.removeProduct(temp,nameOfUser);
+                        productManager.removeProduct(temp, nameOfUser);
                         System.out.println("[\uD83D\uDC4C] Xóa thành công");
                         System.out.println("--------------------------------------");
-                    } else if (productManager.checkIdOfCart(id) == -1){
+                    } else if (productManager.checkIdOfCart(id) == -1) {
                         System.out.println("[❌] Không có mã ID trên");
                         System.out.println("---------------------------------------");
                     }
@@ -223,14 +227,20 @@ public class RunShopByAdmin {
             System.out.println("╠==================================================╣");
             System.out.println("║>[1]. Tài khoản người dùng theo username          ║");
             System.out.println("║>[2]. Thông tin cá nhân người dùng                ║");
-            System.out.println("║>[3]. Lịch sử giao dịch khách hàng                ║");
-            System.out.println("║>[4]. Xóa tài khoản khách hàng                    ║");
+            System.out.println("║>[3]. Xóa tài khoản khách hàng                    ║");
             System.out.println("║>[0]. Quay lại                                    ║");
             System.out.println("╚==================================================╝");
             System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
             int choice = Integer.parseInt(scanner.nextLine());
-            System.out.print("Mời bạn nhập vào username: ");
+            System.out.print("[\uD83D\uDD0E] Mời bạn nhập vào username: ");
             String username = scanner1.nextLine();
+            int check = userManager.checkUserName(username);
+            while (check == -1) {
+                System.out.println("Không tồn tại tài khoản !!");
+                System.out.println("Mời bạn nhập lại username: ");
+                username = scanner.nextLine();
+                check = userManager.checkUserName(username);
+            }
             switch (choice) {
                 case 1:
                     userManager.getNameUser(username);
@@ -239,15 +249,11 @@ public class RunShopByAdmin {
                     userManager.getDetailOfUser(username);
                     break;
                 case 3:
-                    .showAllHistoryUser();
-                    break;
-                case 4:
-                    System.out.print("[\uD83D\uDD0E] Nhập tên tài khoản muốn xóa: ");
-                    String accountName = scanner.nextLine();
-                    userAccounts.deleteAccount(accountName);
+                    userManager.removeAccountUser(check);
                     break;
                 case 0:
                     System.out.println("[\uD83D\uDD14] Thoát");
+                    menuProductOfAdmin();
                     break;
                 default:
                     System.out.println("[❌] Sai lựa chon");
@@ -259,5 +265,4 @@ public class RunShopByAdmin {
             managerUser();
         }
     }
-
 }

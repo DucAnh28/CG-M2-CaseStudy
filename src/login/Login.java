@@ -1,29 +1,40 @@
 package login;
 
+import account.AccountAdmin;
+import controller.ProductManager;
+import controller.UserManager;
 import model.customer.Customer;
 import system.RunShopByAdmin;
+import system.RunShopByUser;
 import validateConst.Validate;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Login {
-
+    ProductManager productManager = new ProductManager();
+    UserManager userManager = new UserManager();
     RunShopByAdmin runShopByAdmin = new RunShopByAdmin();
+    RunShopByUser runShopByUser = new RunShopByUser();
+    Validate validate = Validate.getInstance();
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
+    AccountAdmin accountAdmin = new AccountAdmin();
+
     public Login() {
     }
-    public void loginSystem(){
-        try{
+
+    public void loginSystem() {
+        try {
             menuLogin();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("[❌] Bạn đã nhập sai dữ liệu! Vui lòng nhập lại!");
             System.out.println("---------------------------------------------------");
             loginSystem();
         }
     }
-//
+
+    //
     public void menuLogin() throws NumberFormatException {
         do {
             System.out.println("╔============================================╗");
@@ -67,9 +78,11 @@ public class Login {
             if (checkLoginAccountAdmin(account, password)) {
                 System.out.println("[\uD83D\uDD13] Đặng nhập hệ thống bởi ADMIN thành công !!!");
                 System.out.println("------------------------------------------------------------");
-                RunByAdmin.menuProductOfAdmin();
+                runShopByAdmin.menuProductOfAdmin();
             } else {
                 loginAccountUser(account, password);
+                StringBuilder username = new StringBuilder();
+                productManager.setNameOfUser(username.append(account));
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("[❌] Đăng nhập thất bại. Vui lòng đăng nhập lại !!!");
@@ -79,7 +92,9 @@ public class Login {
     }
 
     public boolean checkLoginAccountAdmin(String account, String password) {
-
+        if (account.equals(accountAdmin.getACCOUNT_NAME()) && password.equals(accountAdmin.getPASSWORD())) {
+            return true;
+        }
         return false;
     }
 
@@ -87,7 +102,7 @@ public class Login {
         if (checkLoginAccountUser(account, password)) {
             System.out.println("[\uD83D\uDD13] Đăng nhập hệ thống bởi USER thành công !!!");
             System.out.println("----------------------------------------------------------");
-            runByUser.menuProductOfUser();
+            runShopByUser.menuProductOfUser();
         } else {
             System.out.println("[❌] Tài khoản USER chưa tồn tại. Vui lòng kiểm tra lại !!!");
             System.out.println("------------------------------------------------------------");
@@ -96,8 +111,9 @@ public class Login {
     }
 
     public boolean checkLoginAccountUser(String account, String password) {
-
-        return false;
+        if (userManager.checkAccount(account, password)) return true;
+        else
+            return false;
     }
 
     public void registerAccountUser() throws InputMismatchException {
@@ -108,12 +124,14 @@ public class Login {
         String passwordUser = registerPassword();
         System.out.print("┠ ▹ Nhập tên: ");
         String name = scanner.nextLine();
+        System.out.print("┠ ▹ Nhập tuổi: ");
+        int age = scanner1.nextInt();
         System.out.print("┠ ▹ Nhập địa chỉ: ");
         String address = scanner.nextLine();
         String phoneNumber = registerPhoneNumber();
         String email = registerEmail();
         System.out.println("┖─────────────────────────────────────┚");
-        checkAccountUser(accountUser, passwordUser, name, address, phoneNumber, email);
+        checkAccountUser(accountUser, passwordUser, name, age, address, phoneNumber, email);
     }
 
     public String registerAccountName() {
@@ -140,7 +158,7 @@ public class Login {
             String password = scanner.nextLine();
             if (!validate.validatePassword(password)) {
                 System.out.println("[❌] Mật khẩu không hợp lệ !!!");
-                System.out.println(">[Chú ý]: Mật khẩu phải từ 8 - 16 ký tự (a,A,1,...)hoặc ký tự đặc biệt");
+                System.out.println(">[Chú ý]: Mật khẩu phải viết hoa chữ cái đầu tiên và có số cuối cùng !");
                 System.out.println("-----------------------------------------");
             } else {
                 passwordUser = password;
@@ -155,7 +173,7 @@ public class Login {
         while (true) {
             System.out.print("┠ ▹ Nhập số điện thoại: ");
             String phone = scanner.nextLine();
-            if (!Validate.validatePhone(phone)) {
+            if (!validate.validatePhone(phone)) {
                 System.out.println("[❌] Số điện thoại không hợp lệ !!!");
                 System.out.println(">[Chú ý]: Số điện thoại phải có 10 số (0 - 9) định dạng: (+84)-911112222");
                 System.out.println("------------------------------------------");
@@ -172,7 +190,7 @@ public class Login {
         while (true) {
             System.out.print("┠ ▹ Nhập email: ");
             String inputEmail = scanner.nextLine();
-            if (!Validate.validateEmail(inputEmail)) {
+            if (!validate.validateEmail(inputEmail)) {
                 System.out.println("[❌] Email không hợp lệ !!!");
                 System.out.println(">[Chú ý]: Email phải có dạng: abc@yahoo.com/ Xyz.a@gmail.vn/...");
                 System.out.println("--------------------------------------------");
@@ -184,27 +202,17 @@ public class Login {
         return email;
     }
 
-    public void checkAccountUser(String accountUser, String passwordUser, String name, String address, String phoneNumber, String email) {
-        if (checkNameAccount(accountUser)) {
+    public void checkAccountUser(String accountUser, String passwordUser, String name, int age, String address, String phoneNumber, String email) {
+        if (userManager.checkUserAccount(accountUser)) {
             System.out.println("[❌] Tài khoản đã tồn tại. Vui lòng đăng ký lại !!!");
             System.out.println("---------------------------------------");
         } else {
-            userManager.addUser(new Customer(name,phoneNumber,address,email));
-            accountUserManager.addAccount(new AccountUser(accountUser,passwordUser));
+            Customer customer = new Customer(accountUser, passwordUser, name, age, address, phoneNumber, email);
+            userManager.addAccountUser(customer);
             System.out.println("Đăng ký thành công. Mời đăng nhập vào hệ thống !!!");
             System.out.println("----------------------------------------");
             System.out.println();
         }
         loginSystem();
-    }
-
-    public boolean checkNameAccount(String accountUser) {
-        for (AccountUser account : accountUserManager.getUserAccounts()) {
-            boolean checkAccountUser = accountUser.equals(account.getAccount());
-            if (checkAccountUser) {
-                return true;
-            }
-        }
-        return false;
     }
 }

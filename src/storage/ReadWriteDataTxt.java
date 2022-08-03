@@ -1,6 +1,9 @@
 package storage;
 
+import model.product.Bill;
+
 import java.io.*;
+import java.util.List;
 
 public class ReadWriteDataTxt {
     private static ReadWriteDataTxt instance = null;

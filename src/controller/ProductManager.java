@@ -1,39 +1,50 @@
 package controller;
 
 import crawlData.ListOfProduct.ListDataCrawlProduct;
+import model.product.Bill;
 import model.product.Product;
 import storage.ReadWriteData;
 import storage.ReadWriteDataBinaryFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductManager implements Serializable {
-    private static final ProductManager instance = new ProductManager();
     private ListDataCrawlProduct listDataCrawlProduct;
     private ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
-    List<Product> listdatacrawl = listDataCrawlProduct.getListData();
+    List<Product> listdatacrawl;
 
-    private ProductManager() {
-        listDataCrawlProduct = new ListDataCrawlProduct();
-    }
+    public static StringBuilder nameOfUser;
 
-    public static ProductManager getInstance(){
-        return instance;
-    }
-    private String nameOfUser;
-
-    public void setNameOfUser(String nameOfUser) {
+    private String nameOfUser1 = nameOfUser.toString();
+//    Đặt tên người đường dẫn người dùng:
+    public void setNameOfUser(StringBuilder nameOfUser) {
         this.nameOfUser = nameOfUser;
     }
 
-    private List<Product> listProductInCart = readWriteData.readData(nameOfUser);
+    private List<Product> listProductInCart ;
 
-    public void displayProductInShop(){
-        for (Product x:
-             listdatacrawl) {
-           x.display();
+    public ProductManager() {
+        if(readWriteData.readData(nameOfUser1) == null) {
+            readWriteData.writeData(listProductInCart,nameOfUser1);
+        } else {
+            listdatacrawl = readWriteData.readData(nameOfUser1);
         }
+        listDataCrawlProduct = new ListDataCrawlProduct();
+        listdatacrawl = listDataCrawlProduct.getListData();
+    }
+
+    public void displayProductInShop() {
+        for (Product x : listdatacrawl) {
+            x.display();
+        }
+    }
+
+    public void showProductInShopByID(int number) {
+        listdatacrawl.get(number).display();
     }
 
     public int checkIdOfProductInShop(String id) {
@@ -47,10 +58,10 @@ public class ProductManager implements Serializable {
         return -1;
     }
 
-    public int checkIdOfCart(String id){
+    public int checkIdOfCart(String id) {
         int check = -1;
         for (int i = 0; i < listProductInCart.size(); i++) {
-            if (id.equalsIgnoreCase(listProductInCart.get(i).getID())){
+            if (id.equalsIgnoreCase(listProductInCart.get(i).getID())) {
                 check = i;
                 return check;
             }
@@ -58,14 +69,22 @@ public class ProductManager implements Serializable {
         return -1;
     }
 
-    public void addProduct(Product products,String path) {
+    public Product showProductInCart() {
+        for (Product x : listProductInCart) {
+            x.display();
+            return x;
+        }
+        return null;
+    }
+
+    public void addProduct(Product products, String path) {
         listProductInCart.add(products);
         readWriteData.writeData(listProductInCart, path);
     }
 
     public void editProduct(int id, Product product, String path) {
         listProductInCart.set(id, product);
-        readWriteData.writeData(listProductInCart,path);
+        readWriteData.writeData(listProductInCart, path);
     }
 
     public void removeProduct(int id, String path) {
@@ -73,15 +92,14 @@ public class ProductManager implements Serializable {
         readWriteData.writeData(listProductInCart, path);
     }
 
-    public void removeAll(String path){
+    public void removeAll(String path) {
         listProductInCart.removeAll(listProductInCart);
-        readWriteData.writeData(listProductInCart,path);
+        readWriteData.writeData(listProductInCart, path);
     }
 
     public double getTotalPrice() {
         double total = 0;
-        for (Product x : listProductInCart
-        ) {
+        for (Product x : listProductInCart) {
             total += x.getPrice();
         }
         return total;

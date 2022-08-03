@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 public class Validate {
     private static Validate instance = null;
-    private static final String ACCOUNT_REGEX = "^(?=.*[a-z])(?=.*[0-9]).{8,12}$";
-    private static final String PASS_REGEX = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\\W\\S]).{8,16}$";
-    private static final String PHONE_REGEX = "^[(](\\+84)[)][-][0-9]{9}$";
+    private static final String ACCOUNT_REGEX = "[a-zA-Z0-9]{7,9}";
+    private static final String PASS_REGEX = "([A-Z]{1})([a-z]{1,9})([0-9]{1,9})"; //Viết hoa chữ cái đầu và bắt buộc có số ở cuối
+    private static final String PHONE_REGEX = "(\\+84)(-)([0-9]{9})";
     private static final String EMAIL_REGEX = "^[a-zA-Z][a-zA-Z0-9]{0,9}[._-]?[a-zA-Z0-9]{1,10}@[a-z]+\\.(com|vn)+$";
 
     private static final String ID_BOOK = "Book_[0-9]{1,3}";

@@ -4,43 +4,89 @@ import model.customer.Customer;
 import storage.ReadWriteData;
 import storage.ReadWriteDataBinaryFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserManager {
-    private final ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
-    private final String CUSTOMER_PATH = "DataOfCase/Customer";
-    private final String CUSTOMER_HISTORY_PATH = "DataOfCase/CustomerHistory";
-    public List<Customer> listUser = (List<Customer>) readWriteData.readData(CUSTOMER_PATH);
-    public List<Customer> listUserHistory = (List<Customer>) readWriteData.readData(CUSTOMER_HISTORY_PATH);
+    public UserManager() {
+        if (!new File(CUSTOMER_PATH).exists()) {
+            try {
+                new File(CUSTOMER_PATH).createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (new File(CUSTOMER_PATH).length() == 0) {
+            listUser = new ArrayList<>();
+        } else {
+            listUser = readWriteData.readData(CUSTOMER_PATH);
+        }
+    }
 
-    public void addAccountUser(Customer customer){
+    private final ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
+    private final String CUSTOMER_PATH = "DataOfCase/Customer.data";
+    public List<Customer> listUser;
+
+    //    Kiểm tra username có tồn tại hay không
+    public int checkUserName(String username) {
+        int check = -1;
+        for (int i = 0; i < listUser.size(); i++) {
+            if (username.equals(listUser.get(i))) {
+                check = i;
+                return check;
+            }
+        }
+        return -1;
+    }
+
+    public void addAccountUser(Customer customer) {
         listUser.add(customer);
         readWriteData.writeData(listUser, CUSTOMER_PATH);
     }
-    public void removeAccountUser(int id){
+
+    public void removeAccountUser(int id) {
         listUser.remove(id);
         readWriteData.writeData(listUser, CUSTOMER_PATH);
     }
-    public void editAccountUser(int id,Customer customer){
-        listUser.set(id,customer);
+
+    public void editAccountUser(int id, Customer customer) {
+        listUser.set(id, customer);
         readWriteData.writeData(listUser, CUSTOMER_PATH);
     }
 
-    public String getNameUser(String username){
+    public String getNameUser(String username) {
         for (int i = 0; i < listUser.size(); i++) {
-            if (username.equals(listUser.get(i).getUsername())){
+            if (username.equals(listUser.get(i).getUsername())) {
                 return listUser.get(i).DetailOfUser();
             }
         }
         return null;
     }
-    public String getDetailOfUser(String username){
+
+    public String getDetailOfUser(String username) {
         for (int i = 0; i < listUser.size(); i++) {
-            if (username.equals(listUser.get(i).getUsername())){
+            if (username.equals(listUser.get(i).getUsername())) {
                 return listUser.get(i).toString();
             }
         }
         return null;
     }
 
+    public boolean checkAccount(String account, String password) {
+        for (int i = 0; i < listUser.size(); i++) {
+            if (account.equals(listUser.get(i).getUsername()) && password.equals(listUser.get(i).getPassword()));
+            return true;
+        }
+        return false;
+    }
+    public boolean checkUserAccount(String username){
+        for (int i = 0; i < listUser.size(); i++) {
+            if (username.equals(listUser.get(i).getUsername())){
+                return true;
+            }
+        }
+        return false;
+    }
 }
