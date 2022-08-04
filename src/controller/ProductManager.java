@@ -5,6 +5,7 @@ import login.Login;
 import model.product.Product;
 import storage.ReadWriteData;
 import storage.ReadWriteDataBinaryFile;
+import system.RunShopByUser;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,26 +16,11 @@ import java.util.List;
 public class ProductManager implements Serializable {
     private ListDataCrawlProduct listDataCrawlProduct = ListDataCrawlProduct.getInstance();
     private ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
-    List<Product> listdatacrawl = listDataCrawlProduct.getListData();
-    private String nameOfUser1 = Login.username + ".dap";
+    public List<Product> listdatacrawl = listDataCrawlProduct.getListData();
 
-    public String getNameOfUser1() {
-        return nameOfUser1;
-    }
-
-    public List<Product> listProductInCart;
+    public List<Product> listProductInCart = new ArrayList<>(RunShopByUser.listProductInCartByUser);
 
     public ProductManager() {
-        if (! new File("DataOfCase/"+nameOfUser1+".dap").exists()) {
-            try {
-                new File("DataOfCase/"+nameOfUser1+".dap").createNewFile();
-                listProductInCart = new ArrayList<>();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            listDataCrawlProduct = (ListDataCrawlProduct) readWriteData.readData(nameOfUser1);
-        }
     }
 
     //        Shop:
@@ -68,7 +54,7 @@ public class ProductManager implements Serializable {
         return null;
     }
 
-    //    Giỏ Hàng người dùng
+    //    Giỏ Hàng người dùng:
     public int checkIdOfCart(String id) {
         int check = -1;
         for (int i = 0; i < listProductInCart.size(); i++) {
@@ -86,24 +72,24 @@ public class ProductManager implements Serializable {
         }
     }
 
-    public void addProduct(Product products) {
+    public void addProduct(Product products, String path) {
         listProductInCart.add(products);
-        readWriteData.writeData(listProductInCart, nameOfUser1);
+        readWriteData.writeData(listProductInCart, path);
     }
 
-    public void editProduct(int id, Product product) {
+    public void editProduct(int id, Product product, String path) {
         listProductInCart.set(id, product);
-        readWriteData.writeData(listProductInCart, nameOfUser1);
+        readWriteData.writeData(listProductInCart, path);
     }
 
-    public void removeProduct(int id) {
+    public void removeProduct(int id, String path) {
         listProductInCart.remove(id);
-        readWriteData.writeData(listProductInCart, nameOfUser1);
+        readWriteData.writeData(listProductInCart, path);
     }
 
-    public void removeAll() {
+    public void removeAll(String path) {
         listProductInCart.removeAll(listProductInCart);
-        readWriteData.writeData(listProductInCart, nameOfUser1);
+        readWriteData.writeData(listProductInCart, path);
     }
 
     public double getTotalPrice() {
