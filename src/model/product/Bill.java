@@ -25,11 +25,12 @@ public class Bill {
     }
 
     public String getProductList() {
+        StringBuilder temp = new StringBuilder() ;
         for (Product x:productList
              ) {
-          return x.toString();
+          temp.append(x.toString());
         }
-        return "";
+        return temp.toString();
     }
 
     public double getTotalPrice() {
