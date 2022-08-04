@@ -4,15 +4,22 @@
 - Văn phòng phẩm.
 - Đồ dùng làm đẹp, sức khỏe.
 ### Tính năng:
+#### người dùng:
 - Lấy dữ liệu từ trang web bookbuy.vn
 - Tạo danh sách của giỏ hàng khách hàng dựa trên DL lấy được
-- Thêm sửa xóa sản phẩm
+- Thêm xóa sản phẩm trong giỏ hàng người dùng
 - Ghi dữ liệu đã sửa xóa sang file nhị phân
 - Ghi bill của người dùng ra file txt.
+##### Người quản lý:
+- kiểm tra tài khoản người dùng
+- sửa xóa sản phẩm trong giỏ hàng người dùng
+- hiển thị danh sách trong cửa hàng
+- kiểm tra sản phẩm trong cửa hàng thông qua ID
 ### Học được từ CaseStudy:
 - Đọc dữ liệu trang web bằng Jsoup
 - Sử dụng singleton(Design Pattern) ở crawlData
-- 
+- Ghi file ra nhị phân và file text bằng nhiều tên khác nhau
+- Luyện tập với REGEX (Regular Expression)
 ### Link:
 #### https://bookbuy.vn/sach-moi/p1
 #### https://bookbuy.vn/van-phong-pham/dung-cu-ve

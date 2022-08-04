@@ -150,9 +150,9 @@ public class RunShopByUser {
 
     public void payment() {
         if (!productManager.listProductInCart.isEmpty()) {
-            System.out.print("[\uD83D\uDCB0] Tổng giá tiền các sản phẩm trong giỏ hàng là: " + productManager.getTotalPrice());
-            System.out.print("[\uD83C\uDF81] Xác nhân thanh toán (Y/N): ");
-            String result = scanner.nextLine();
+            System.out.println("[\uD83D\uDCB0] Tổng giá tiền các sản phẩm trong giỏ hàng là: " + productManager.getTotalPrice());
+            System.out.print("[\uD83C\uDF81] Xác nhận thanh toán (Y/N): ");
+            String result = scanner1.nextLine();
             if (result.equalsIgnoreCase("Y")) {
                 Bill bill = new Bill(productManager.getNameOfUser1(), productManager.listProductInCart, productManager.getTotalPrice(), LocalDateTime.now());
                 billManager.writeBillOfUser(bill.toString(), productManager.getNameOfUser1());

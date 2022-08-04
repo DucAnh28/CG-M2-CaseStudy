@@ -11,20 +11,11 @@ import java.util.List;
 
 public class UserManager {
     public UserManager() {
-        if (!new File("DataOfCase/"+CUSTOMER_PATH).exists()) {
-            try {
-                new File("DataOfCase/"+CUSTOMER_PATH).createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            listUser = readWriteData.readData(CUSTOMER_PATH);
-        }
     }
 
-    private final ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
+    private ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
     private final String CUSTOMER_PATH = "customerUser.dap";
-    public List<Customer> listUser;
+    public List<Customer> listUser = (List<Customer>) readWriteData.readData(CUSTOMER_PATH);
 
     //    Kiểm tra username có tồn tại hay không
     public int checkUserName(String username) {
@@ -73,14 +64,15 @@ public class UserManager {
 
     public boolean checkAccount(String account, String password) {
         for (int i = 0; i < listUser.size(); i++) {
-            if (account.equals(listUser.get(i).getUsername()) && password.equals(listUser.get(i).getPassword()));
+            if (account.equals(listUser.get(i).getUsername()) && password.equals(listUser.get(i).getPassword()))
             return true;
         }
         return false;
     }
-    public boolean checkUserAccount(String username){
+
+    public boolean checkUserAccount(String username) {
         for (int i = 0; i < listUser.size(); i++) {
-            if (username.equals(listUser.get(i).getUsername())){
+            if (username.equals(listUser.get(i).getUsername())) {
                 return true;
             }
         }

@@ -12,7 +12,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Login {
-    ProductManager productManager = new ProductManager();
+//    ProductManager productManager = new ProductManager();
     UserManager userManager = new UserManager();
     RunShopByAdmin runShopByAdmin = new RunShopByAdmin();
     RunShopByUser runShopByUser = new RunShopByUser();
@@ -20,7 +20,7 @@ public class Login {
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
     AccountAdmin accountAdmin = new AccountAdmin();
-    public static String username ;
+    public static StringBuilder username = new StringBuilder();
 
     public Login() {
     }
@@ -91,22 +91,16 @@ public class Login {
     }
 
     public void loginAccountUser(String account, String password) {
-        if (checkLoginAccountUser(account, password)) {
+        if (userManager.checkAccount(account,password) == true) {
             System.out.println("[\uD83D\uDD13] Đăng nhập hệ thống bởi USER thành công !!!");
             System.out.println("----------------------------------------------------------");
-
+            username.append(account);
             runShopByUser.menuProductOfUser();
         } else {
             System.out.println("[❌] Tài khoản USER chưa tồn tại. Hoặc sai mật khẩu . Vui lòng kiểm tra lại !!!");
             System.out.println("------------------------------------------------------------");
             loginSystem();
         }
-    }
-
-    public boolean checkLoginAccountUser(String account, String password) {
-        if (userManager.checkAccount(account, password)) return true;
-        else
-            return false;
     }
 
     public void registerAccountUser() throws InputMismatchException {

@@ -27,7 +27,7 @@ public class ProductManager implements Serializable {
     public ProductManager() {
         if (! new File("DataOfCase/"+nameOfUser1+".dap").exists()) {
             try {
-                new File("DataOfCase/"+nameOfUser1).createNewFile();
+                new File("DataOfCase/"+nameOfUser1+".dap").createNewFile();
                 listProductInCart = new ArrayList<>();
             } catch (IOException e) {
                 e.printStackTrace();

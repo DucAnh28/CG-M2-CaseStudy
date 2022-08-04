@@ -30,12 +30,12 @@ public class ReadWriteDataBinaryFile implements ReadWriteData {
     }
 
     @Override
-    public List<Product> readData(String name) {
+    public List readData(String name) {
         try {
             FileInputStream fis = new FileInputStream("DataOfCase/"+name);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object temp = ois.readObject();
-            List<Product> list = (List<Product>) temp;
+            List list = (List) temp;
             fis.close();
             ois.close();
             return list;
