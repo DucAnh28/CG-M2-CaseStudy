@@ -3,9 +3,8 @@ package controller;
 import storage.ReadWriteDataTxt;
 
 public class BillManager {
-    private ReadWriteDataTxt readWriteData ;
+    private ReadWriteDataTxt readWriteData = ReadWriteDataTxt.getInstance();
     public BillManager() {
-        ReadWriteDataTxt readWriteData = ReadWriteDataTxt.getInstance();
     }
 
     public void writeBillOfUser(String data, String path) {

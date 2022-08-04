@@ -99,4 +99,6 @@ public class ProductManager implements Serializable {
         }
         return total;
     }
+
+
 }

@@ -78,4 +78,11 @@ public class UserManager {
         }
         return false;
     }
+
+    public void getAllListUser(){
+        for (Customer x: listUser
+             ) {
+            System.out.println(x.DetailOfUser());
+        }
+    }
 }

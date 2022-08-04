@@ -18,7 +18,7 @@ public class Login {
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
     AccountAdmin accountAdmin = new AccountAdmin();
-    public static String usernameOfLogin;
+    public static StringBuilder usernameOfLogin = new StringBuilder();
 
     public Login() {
     }
@@ -90,9 +90,9 @@ public class Login {
 
     public void loginAccountUser(String account, String password) {
         if (userManager.checkAccount(account,password) == true) {
+            usernameOfLogin.append(account);
             System.out.println("[\uD83D\uDD13] Đăng nhập hệ thống bởi USER thành công !!!");
             System.out.println("----------------------------------------------------------");
-            usernameOfLogin = account;
             runShopByUser.menuProductOfUser();
         } else {
             System.out.println("[❌] Tài khoản USER chưa tồn tại. Hoặc sai mật khẩu . Vui lòng kiểm tra lại !!!");

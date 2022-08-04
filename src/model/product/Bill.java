@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Bill implements Serializable {
+public class Bill {
     private String userName;
     private List<Product> productList;
     private double totalPrice;

@@ -76,7 +76,7 @@ public class RunShopByAdmin {
                     case 5:
                         System.out.println("Nhập username của khách hàng");
                         String name = scanner1.nextLine();
-                        if (name.equals(RunShopByUser.usernameInShop)) {
+                        if (name.equals(RunShopByUser.usernameInShop.toString())) {
                             productManager.showProductInCart();
                         }
                         break;
@@ -129,7 +129,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập tên tác giả book: ");
                     String author = scanner.nextLine();
                     Book book = new Book(idOfBook, nameBook, priceOfBook, author);
-                    productManager.editProduct(index, book,RunShopByUser.usernameInShop+".data");
+                    productManager.editProduct(index, book, RunShopByUser.usernameInShop.toString() + ".data");
                     break;
                 case 2:
                     System.out.print("Nhập ID dụng cụ vẽ: ");
@@ -145,7 +145,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập giá dụng cụ vẽ: ");
                     double priceOfDrawS = scanner1.nextDouble();
                     DrawStuff drawStuff = new DrawStuff(idOfDrawStuff, nameDraw, priceOfDrawS);
-                    productManager.editProduct(index, drawStuff,RunShopByUser.usernameInShop+".data");
+                    productManager.editProduct(index, drawStuff, RunShopByUser.usernameInShop.toString() + ".data");
                     break;
                 case 3:
                     System.out.print("Nhập ID đồ làm đẹp: ");
@@ -161,7 +161,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập giá đồ làm đẹp: ");
                     double priceOfBeautiStuff = scanner1.nextDouble();
                     BeautiStuff beautiStuff = new BeautiStuff(idOfBeautiStuff, nameBeauti, priceOfBeautiStuff);
-                    productManager.editProduct(index, beautiStuff,RunShopByUser.usernameInShop+".data");
+                    productManager.editProduct(index, beautiStuff, RunShopByUser.usernameInShop.toString() + ".data");
                     break;
             }
         } catch (InputMismatchException e) {
@@ -187,7 +187,7 @@ public class RunShopByAdmin {
                     String id = scanner.nextLine();
                     if (productManager.checkIdOfCart(id) != -1) {
                         int temp = productManager.checkIdOfCart(id);
-                        productManager.removeProduct(temp,RunShopByUser.usernameInShop+".data");
+                        productManager.removeProduct(temp, RunShopByUser.usernameInShop + ".data");
                         System.out.println("[\uD83D\uDC4C] Xóa thành công");
                         System.out.println("--------------------------------------");
                     } else if (productManager.checkIdOfCart(id) == -1) {
@@ -199,7 +199,7 @@ public class RunShopByAdmin {
                     System.err.print("⛔ \uD83D\uDEA7 Bạn chắn chắc muốn xóa hết dữ liệu (Y/N)❓ \uD83D\uDEA7 ⛔: ");
                     String choice = scanner.nextLine();
                     if (choice.equalsIgnoreCase("Y")) {
-                        productManager.removeAll(RunShopByUser.usernameInShop+".data");
+                        productManager.removeAll(RunShopByUser.usernameInShop + ".data");
                         System.out.println("[\uD83D\uDCBE] Đã xóa hết dữ liệu");
                         System.out.println("-----------------------------------------------------");
                     } else {
@@ -227,6 +227,7 @@ public class RunShopByAdmin {
             System.out.println("║>[1]. Tài khoản người dùng theo username          ║");
             System.out.println("║>[2]. Thông tin cá nhân người dùng                ║");
             System.out.println("║>[3]. Xóa tài khoản khách hàng                    ║");
+            System.out.println("║>[4]. Xem toàn bộ tài khoản người dùng            ║");
             System.out.println("║>[0]. Quay lại                                    ║");
             System.out.println("╚==================================================╝");
             System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
@@ -249,6 +250,9 @@ public class RunShopByAdmin {
                     break;
                 case 3:
                     userManager.removeAccountUser(check);
+                    break;
+                case 4:
+                    userManager.getAllListUser();
                     break;
                 case 0:
                     System.out.println("[\uD83D\uDD14] Thoát");
