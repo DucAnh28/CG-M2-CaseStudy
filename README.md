@@ -1,4 +1,3 @@
-# CG-M2-CaseStudy
 # CaseStudy Module 2: Quản lý sản phẩm
 ### Bao gồm các sản phầm: 
 - Sách truyện.
