@@ -93,6 +93,6 @@ public class Customer implements Serializable {
 
     public String DetailOfUser() {
         return "Username= " + getUsername() + "/" +
-                "password= " + getUsername() + "\n";
+                "password= " + getPassword() + "\n";
     }
 }

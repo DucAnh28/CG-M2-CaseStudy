@@ -1,0 +1,1 @@
+Bill{userName='ducanh123', productList=Product{, name='Combo 2 Sổ A5 và Vuông Vẽ Ký Họa Sketchbook Dạng Pad CMA Studio Giấy Italy 120gsm(Sổ A5 + Sổ 21x21cm) - (Mẫu Tùy Chọn)'}, totalPrice=155000.0, purchaseDate=2022-08-04T22:39:00.863}

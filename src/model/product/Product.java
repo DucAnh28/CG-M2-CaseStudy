@@ -42,4 +42,11 @@ public abstract class Product implements Serializable {
 
 
     public abstract void display();
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }

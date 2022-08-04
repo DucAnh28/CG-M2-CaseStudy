@@ -25,6 +25,7 @@ public class ReadWriteDataTxt {
             bufferedWriter.close();
             fileWriter.close();
         } catch (IOException e) {
+//            System.out.println("lỗi ở đây");
             System.err.println(e.getMessage());
         }
     }

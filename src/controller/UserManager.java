@@ -21,7 +21,7 @@ public class UserManager {
     public int checkUserName(String username) {
         int check = -1;
         for (int i = 0; i < listUser.size(); i++) {
-            if (username.equals(listUser.get(i))) {
+            if (username.equals(listUser.get(i).getUsername())) {
                 check = i;
                 return check;
             }

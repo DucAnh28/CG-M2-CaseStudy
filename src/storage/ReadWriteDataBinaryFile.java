@@ -40,7 +40,7 @@ public class ReadWriteDataBinaryFile implements ReadWriteData {
             ois.close();
             return list;
         } catch (IOException e){
-            System.err.println(e.getMessage());
+            System.err.println("Ồ thì ra bạn là người mới !! Chào mừng Bạn đến với DucAnhStore");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

@@ -8,7 +8,6 @@ import model.product.Bill;
 import model.product.Product;
 import storage.ReadWriteData;
 import storage.ReadWriteDataBinaryFile;
-import storage.ReadWriteDataTxt;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,14 +35,14 @@ public class RunShopByUser {
                 e.printStackTrace();
             }
         } else {
-            listProductInCartByUser = (List<Product>) readWriteData.readData(usernameInShop.toString() + ".data");
+//            listProductInCartByUser = (List<Product>) readWriteData.readData(usernameInShop.toString() + ".data");
         }
     }
 
     public void menuProductOfUser() {
         try {
             do {
-                listProductInCartByUser = (List<Product>) readWriteData.readData(usernameInShop.toString() + ".data");
+//                listProductInCartByUser = (List<Product>) readWriteData.readData(usernameInShop.toString() + ".data");
                 System.out.println("╔============================================================╗");
                 System.out.println("║     -·=»‡«=·- °l||l°  HỆ THỐNG USER  °l||l°- ·=»‡«=·-      ║");
                 System.out.println("╠============================================================╣");
@@ -53,6 +52,7 @@ public class RunShopByUser {
                 System.out.println("║>[4]. Xóa sản phẩm khỏi giỏ hàng                            ║");
                 System.out.println("║>[5]. Hiển thị sản phẩm trong giỏ hàng                      ║");
                 System.out.println("║>[6]. Thanh toán                                            ║");
+                System.out.println("║>[7]. Xem giỏ hàng cũ                                       ║");
                 System.out.println("║>[0]. Đăng xuất                                             ║");
                 System.out.println("╚============================================================╝");
                 System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
@@ -78,7 +78,10 @@ public class RunShopByUser {
                     case 6:
                         displayCart();
                         payment();
-                        productManager.removeAll(usernameInShop.toString());
+//                        productManager.removeAll(usernameInShop.toString());
+                        break;
+                    case 7:
+                        oldCartOfUser();
                         break;
                     case 0:
                         System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống USER !!!");
@@ -173,12 +176,13 @@ public class RunShopByUser {
 
     public void payment() {
         if (!productManager.listProductInCart.isEmpty()) {
+            Scanner scanner2 = new Scanner(System.in);
             System.out.println("[\uD83D\uDCB0] Tổng giá tiền các sản phẩm trong giỏ hàng là: " + productManager.getTotalPrice());
             System.out.print("[\uD83C\uDF81] Xác nhận thanh toán (Y/N): ");
-            String result1 = scanner.nextLine();
+            String result1 = scanner2.nextLine();
             if ("Y".equals(result1)) {
-                Bill bill = new Bill(usernameInShop.toString(), productManager.listProductInCart, productManager.getTotalPrice(), LocalDateTime.now());
-                billManager.writeBillOfUser(bill.toString(), usernameInShop.toString());
+                Bill bill1 = new Bill(usernameInShop.toString(), productManager.listProductInCart, productManager.getTotalPrice(), LocalDateTime.now());
+                billManager.writeBillOfUser(bill1.toString(), usernameInShop.toString());
                 System.out.println("[\uD83D\uDC4C] Thanh toán hoàn tất! Xin trân trọng cảm ơn quý khách đã mua sản phẩm!!\uD83C\uDF81 \uD83D\uDC97 \uD83D\uDC97");
             } else {
                 System.out.println("[❌] Bạn cần thanh toán hóa đơn để có sản phẩm");

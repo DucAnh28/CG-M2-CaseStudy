@@ -24,8 +24,12 @@ public class Bill {
         return userName;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public String getProductList() {
+        for (Product x:productList
+             ) {
+          return x.toString();
+        }
+        return "";
     }
 
     public double getTotalPrice() {
@@ -40,7 +44,7 @@ public class Bill {
     public String toString() {
         return "Bill{" +
                 "userName='" + userName + '\'' +
-                ", productList=" + productList +
+                ", productList=" + getProductList() +
                 ", totalPrice=" + totalPrice +
                 ", purchaseDate=" + purchaseDate +
                 '}';
