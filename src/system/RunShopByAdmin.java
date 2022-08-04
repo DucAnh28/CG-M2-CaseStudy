@@ -3,6 +3,7 @@ package system;
 import controller.ProductManager;
 import controller.UserManager;
 //import login.Login;
+import login.Login;
 import model.product.BeautiStuff;
 import model.product.Book;
 import model.product.DrawStuff;
@@ -14,7 +15,6 @@ import java.util.Scanner;
 public class RunShopByAdmin {
     private UserManager userManager = new UserManager();
     Validate validate = Validate.getInstance();
-    //    Login login = new Login();
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
     private ProductManager productManager = new ProductManager();
@@ -47,8 +47,11 @@ public class RunShopByAdmin {
                         String idInShop = scanner.nextLine();
                         int check0 = productManager.checkIdOfProductInShop(idInShop);
                         if (check0 != -1) {
+                            System.out.println("Sản phẩm bạn cần tìm là: ");
                             productManager.showProductInShopByID(check0);
-                        } else System.out.println("Không có sản phẩm !!");
+                            System.out.println("_______________________________");
+                        } else
+                            System.out.println("Không có sản phẩm !!");
                         break;
                     case 3:
                         try {
@@ -71,6 +74,9 @@ public class RunShopByAdmin {
                         deleteProductInCart();
                         break;
                     case 5:
+                        System.out.println("Nhập username của khách hàng");
+                        String name = scanner1.nextLine();
+                        if (name.equals(productManager.getNameOfUser1()))
                         productManager.showProductInCart();
                         break;
                     case 6:
@@ -79,7 +85,7 @@ public class RunShopByAdmin {
                     case 0:
                         System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống ADMIN !!!");
                         System.out.println("-----------------------------------------------------");
-//                        new Login().loginSystem();
+                        new Login().loginSystem();
                         break;
                     default:
                         System.out.println("[❌] Không có lựa chọn trên");
@@ -105,10 +111,6 @@ public class RunShopByAdmin {
             System.out.println("╚===========================================╝");
             System.out.print("[\uD83D\uDC4B] Mời bạn nhập vào lựa chọn: ");
             int choiceAdd = Integer.parseInt(scanner.nextLine());
-            System.out.print("Nhập username của giỏ hàng: ");
-            String nameOfUser = scanner.nextLine();
-            StringBuilder nameOfUser1 = new StringBuilder(nameOfUser);
-            productManager.setNameOfUser(nameOfUser1);
             switch (choiceAdd) {
                 case 1:
                     System.out.print("Nhập ID sản phẩm mới: ");
@@ -126,7 +128,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập tên tác giả book: ");
                     String author = scanner.nextLine();
                     Book book = new Book(idOfBook, nameBook, priceOfBook, author);
-                    productManager.editProduct(index, book, nameOfUser);
+                    productManager.editProduct(index, book);
                     break;
                 case 2:
                     System.out.print("Nhập ID dụng cụ vẽ: ");
@@ -142,7 +144,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập giá dụng cụ vẽ: ");
                     double priceOfDrawS = scanner1.nextDouble();
                     DrawStuff drawStuff = new DrawStuff(idOfDrawStuff, nameDraw, priceOfDrawS);
-                    productManager.editProduct(index, drawStuff, nameOfUser);
+                    productManager.editProduct(index, drawStuff);
                     break;
                 case 3:
                     System.out.print("Nhập ID đồ làm đẹp: ");
@@ -158,7 +160,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập giá đồ làm đẹp: ");
                     double priceOfBeautiStuff = scanner1.nextDouble();
                     BeautiStuff beautiStuff = new BeautiStuff(idOfBeautiStuff, nameBeauti, priceOfBeautiStuff);
-                    productManager.editProduct(index, beautiStuff, nameOfUser);
+                    productManager.editProduct(index, beautiStuff);
                     break;
             }
         } catch (InputMismatchException e) {
@@ -178,17 +180,13 @@ public class RunShopByAdmin {
             System.out.println("╚===========================================╝");
             System.out.print("[\uD83D\uDC4B] Mời bạn nhập vào lựa chọn: ");
             int choiceAdd = Integer.parseInt(scanner.nextLine());
-            System.out.print("Nhập username của khách hàng: ");
-            String nameOfUser = scanner1.nextLine();
-            StringBuilder nameOfUser1 = new StringBuilder(nameOfUser);
-            productManager.setNameOfUser(nameOfUser1);
             switch (choiceAdd) {
                 case 1:
                     System.out.print("[\uD83D\uDD0E] Nhập mã ID: ");
                     String id = scanner.nextLine();
                     if (productManager.checkIdOfCart(id) != -1) {
                         int temp = productManager.checkIdOfCart(id);
-                        productManager.removeProduct(temp, nameOfUser);
+                        productManager.removeProduct(temp);
                         System.out.println("[\uD83D\uDC4C] Xóa thành công");
                         System.out.println("--------------------------------------");
                     } else if (productManager.checkIdOfCart(id) == -1) {
@@ -200,7 +198,7 @@ public class RunShopByAdmin {
                     System.err.print("⛔ \uD83D\uDEA7 Bạn chắn chắc muốn xóa hết dữ liệu (Y/N)❓ \uD83D\uDEA7 ⛔: ");
                     String choice = scanner.nextLine();
                     if (choice.equalsIgnoreCase("Y")) {
-                        productManager.removeAll(nameOfUser);
+                        productManager.removeAll();
                         System.out.println("[\uD83D\uDCBE] Đã xóa hết dữ liệu");
                         System.out.println("-----------------------------------------------------");
                     } else {

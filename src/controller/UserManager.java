@@ -11,22 +11,19 @@ import java.util.List;
 
 public class UserManager {
     public UserManager() {
-        if (!new File(CUSTOMER_PATH).exists()) {
+        if (!new File("DataOfCase/"+CUSTOMER_PATH).exists()) {
             try {
-                new File(CUSTOMER_PATH).createNewFile();
+                new File("DataOfCase/"+CUSTOMER_PATH).createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        if (new File(CUSTOMER_PATH).length() == 0) {
-            listUser = new ArrayList<>();
         } else {
             listUser = readWriteData.readData(CUSTOMER_PATH);
         }
     }
 
     private final ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
-    private final String CUSTOMER_PATH = "DataOfCase/Customer.data";
+    private final String CUSTOMER_PATH = "customerUser.dap";
     public List<Customer> listUser;
 
     //    Kiểm tra username có tồn tại hay không

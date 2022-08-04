@@ -19,7 +19,7 @@ public class ReadWriteDataBinaryFile implements ReadWriteData {
     @Override
     public void writeData(List list, String name) {
         try {
-            FileOutputStream fos = new FileOutputStream("DataOfCase/"+name+".dap");
+            FileOutputStream fos = new FileOutputStream("DataOfCase/"+name);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(list);
             fos.close();
@@ -32,7 +32,7 @@ public class ReadWriteDataBinaryFile implements ReadWriteData {
     @Override
     public List<Product> readData(String name) {
         try {
-            FileInputStream fis = new FileInputStream("DataOfCase/"+name+".dap");
+            FileInputStream fis = new FileInputStream("DataOfCase/"+name);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object temp = ois.readObject();
             List<Product> list = (List<Product>) temp;

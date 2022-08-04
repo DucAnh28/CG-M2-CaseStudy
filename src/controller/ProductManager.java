@@ -2,7 +2,6 @@ package controller;
 
 import crawlData.ListOfProduct.ListDataCrawlProduct;
 import login.Login;
-import model.product.Bill;
 import model.product.Product;
 import storage.ReadWriteData;
 import storage.ReadWriteDataBinaryFile;
@@ -14,34 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductManager implements Serializable {
-    private ListDataCrawlProduct listDataCrawlProduct;
+    private ListDataCrawlProduct listDataCrawlProduct = ListDataCrawlProduct.getInstance();
     private ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
-    List<Product> listdatacrawl;
-
-    public static StringBuilder nameOfUser = Login.username;
-
-    private String nameOfUser1 = nameOfUser.toString();
-//    Đặt tên người đường dẫn người dùng:
-    public void setNameOfUser(StringBuilder nameOfUser) {
-        this.nameOfUser = nameOfUser;
-    }
+    List<Product> listdatacrawl = listDataCrawlProduct.getListData();
+    private String nameOfUser1 = Login.username + ".dap";
 
     public String getNameOfUser1() {
         return nameOfUser1;
     }
 
-    public List<Product> listProductInCart ;
+    public List<Product> listProductInCart;
 
     public ProductManager() {
-        if(readWriteData.readData(nameOfUser1) == null) {
-            readWriteData.writeData(listProductInCart,nameOfUser1);
+        if (! new File("DataOfCase/"+nameOfUser1+".dap").exists()) {
+            try {
+                new File("DataOfCase/"+nameOfUser1).createNewFile();
+                listProductInCart = new ArrayList<>();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
-            listdatacrawl = readWriteData.readData(nameOfUser1);
+            listDataCrawlProduct = (ListDataCrawlProduct) readWriteData.readData(nameOfUser1);
         }
-        listDataCrawlProduct = new ListDataCrawlProduct();
-        listdatacrawl = listDataCrawlProduct.getListData();
     }
 
+    //        Shop:
     public void displayProductInShop() {
         for (Product x : listdatacrawl) {
             x.display();
@@ -63,6 +59,16 @@ public class ProductManager implements Serializable {
         return -1;
     }
 
+    public Product findProductInShop(String id) {
+        for (int i = 0; i < listdatacrawl.size(); i++) {
+            if (id.equals(listdatacrawl.get(i).getID())) {
+                return listdatacrawl.get(i);
+            }
+        }
+        return null;
+    }
+
+    //    Giỏ Hàng người dùng
     public int checkIdOfCart(String id) {
         int check = -1;
         for (int i = 0; i < listProductInCart.size(); i++) {
@@ -74,32 +80,30 @@ public class ProductManager implements Serializable {
         return -1;
     }
 
-    public Product showProductInCart() {
+    public void showProductInCart() {
         for (Product x : listProductInCart) {
             x.display();
-            return x;
         }
-        return null;
     }
 
-    public void addProduct(Product products, String path) {
+    public void addProduct(Product products) {
         listProductInCart.add(products);
-        readWriteData.writeData(listProductInCart, path);
+        readWriteData.writeData(listProductInCart, nameOfUser1);
     }
 
-    public void editProduct(int id, Product product, String path) {
+    public void editProduct(int id, Product product) {
         listProductInCart.set(id, product);
-        readWriteData.writeData(listProductInCart, path);
+        readWriteData.writeData(listProductInCart, nameOfUser1);
     }
 
-    public void removeProduct(int id, String path) {
+    public void removeProduct(int id) {
         listProductInCart.remove(id);
-        readWriteData.writeData(listProductInCart, path);
+        readWriteData.writeData(listProductInCart, nameOfUser1);
     }
 
-    public void removeAll(String path) {
+    public void removeAll() {
         listProductInCart.removeAll(listProductInCart);
-        readWriteData.writeData(listProductInCart, path);
+        readWriteData.writeData(listProductInCart, nameOfUser1);
     }
 
     public double getTotalPrice() {

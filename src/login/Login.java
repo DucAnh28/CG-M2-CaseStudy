@@ -20,7 +20,7 @@ public class Login {
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
     AccountAdmin accountAdmin = new AccountAdmin();
-    public static StringBuilder username = new StringBuilder();
+    public static String username ;
 
     public Login() {
     }
@@ -39,7 +39,7 @@ public class Login {
     public void menuLogin() throws NumberFormatException {
         do {
             System.out.println("╔============================================╗");
-            System.out.println("║   ▂ ▃ ▅ ▆ █ Duc Anh BookStore █ ▆ ▅ ▃ ▂    ║");
+            System.out.println("║    ꧁ღ╭⊱ꕥ  DucAnh BookStore  ꕥ⊱╮ღ꧂     ║");
             System.out.println("╠============================================╣");
             System.out.println("║>[1]. Đăng nhập                             ║");
             System.out.println("║>[2]. Đăng ký tài khoản                     ║");
@@ -69,7 +69,7 @@ public class Login {
         System.out.print("┠ ▹ Nhập tài khoản: ");
         String account = scanner.nextLine();
         System.out.print("┠ ▹ Nhập mật khẩu: ");
-        String password = scanner1.nextLine();
+        String password = scanner1.next();
         System.out.println("┖───────────────────────────────────────┚");
         checkAccount(account, password);
     }
@@ -82,8 +82,6 @@ public class Login {
                 runShopByAdmin.menuProductOfAdmin();
             } else {
                 loginAccountUser(account, password);
-                username = new StringBuilder();
-                productManager.setNameOfUser(username.append(account));
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("[❌] Đăng nhập thất bại. Vui lòng đăng nhập lại !!!");
@@ -96,9 +94,10 @@ public class Login {
         if (checkLoginAccountUser(account, password)) {
             System.out.println("[\uD83D\uDD13] Đăng nhập hệ thống bởi USER thành công !!!");
             System.out.println("----------------------------------------------------------");
+
             runShopByUser.menuProductOfUser();
         } else {
-            System.out.println("[❌] Tài khoản USER chưa tồn tại. Vui lòng kiểm tra lại !!!");
+            System.out.println("[❌] Tài khoản USER chưa tồn tại. Hoặc sai mật khẩu . Vui lòng kiểm tra lại !!!");
             System.out.println("------------------------------------------------------------");
             loginSystem();
         }

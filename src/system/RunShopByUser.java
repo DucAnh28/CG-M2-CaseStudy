@@ -2,14 +2,12 @@ package system;
 
 import controller.BillManager;
 import controller.ProductManager;
+import login.Login;
 import model.product.Bill;
 import model.product.Product;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class RunShopByUser {
@@ -62,7 +60,7 @@ public class RunShopByUser {
                     case 0:
                         System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống USER !!!");
                         System.out.println("----------------------------------------------------");
-//                        new Login().loginSystem();
+                        new Login().loginSystem();
                         break;
                     default:
                         System.out.println("[❌] Nhập sai lựa chọn, thử lại");
@@ -104,15 +102,13 @@ public class RunShopByUser {
 
     public void addProductToCart() {
         try {
-            System.out.print("[\uD83D\uDD0E] Nhập mã sản phẩm bỏ vào giỏ: ");
-            int id = Integer.parseInt(scanner.nextLine());
-            Product product = productManager.showProductInCart();
+            System.out.print("[\uD83D\uDD0E] Nhập mã ID sản phẩm bỏ vào giỏ: ");
+            String id = scanner1.nextLine();
+            Product product = productManager.findProductInShop(id);
             if (product == null) {
                 System.out.println("[❌] Không đúng mã ID sản phẩm");
             } else {
-                System.out.println("Mời bạn nhập username của bạn: ");
-                String username = scanner1.nextLine();
-                productManager.addProduct(product, username);
+                productManager.addProduct(product);
                 System.out.println("[\uD83D\uDC4C] Đã thêm sản phẩm vào giỏ hàng");
             }
         } catch (InputMismatchException e) {
@@ -124,19 +120,16 @@ public class RunShopByUser {
 
     public void removeProductFromCart() {
         try {
-            if (productManager.showProductInCart() == null) {
+            if (productManager.listProductInCart.isEmpty()) {
                 System.out.println("[❌] Giỏ hàng trống rỗng");
             } else {
                 System.out.print("[\uD83D\uDD0E] Nhập mã sản phẩm muốn xóa khỏi giỏ hàng: ");
                 String id = scanner.nextLine();
                 int check = productManager.checkIdOfCart(id);
-
                 if (check == -1) {
                     System.out.println("[❌] Không có sản phẩm có mã ID trên trong giỏ hàng");
                 } else {
-                    System.out.println("Mời bạn nhập username của bạn: ");
-                    String username = scanner1.nextLine();
-                    productManager.removeProduct(check, username);
+                    productManager.removeProduct(check);
                     System.out.println("[\uD83D\uDC4C] Đã xóa sản phẩm thành công khỏi giỏ hàng");
                 }
             }
@@ -148,7 +141,7 @@ public class RunShopByUser {
     }
 
     public void displayCart() {
-        if (productManager.showProductInCart() == null) {
+        if (productManager.listProductInCart.isEmpty()) {
             System.out.println("[❌] Chưa có sản phẩm nào trong giỏ hàng");
         } else {
             productManager.showProductInCart();
@@ -156,7 +149,7 @@ public class RunShopByUser {
     }
 
     public void payment() {
-        if (productManager.showProductInCart() != null) {
+        if (!productManager.listProductInCart.isEmpty()) {
             System.out.print("[\uD83D\uDCB0] Tổng giá tiền các sản phẩm trong giỏ hàng là: " + productManager.getTotalPrice());
             System.out.print("[\uD83C\uDF81] Xác nhân thanh toán (Y/N): ");
             String result = scanner.nextLine();
