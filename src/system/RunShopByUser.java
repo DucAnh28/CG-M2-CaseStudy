@@ -52,7 +52,7 @@ public class RunShopByUser {
                 System.out.println("║>[4]. Xóa sản phẩm khỏi giỏ hàng                            ║");
                 System.out.println("║>[5]. Hiển thị sản phẩm trong giỏ hàng                      ║");
                 System.out.println("║>[6]. Thanh toán                                            ║");
-                System.out.println("║>[7]. Xem giỏ hàng cũ                                       ║");
+                System.out.println("║>[7]. Lấy giỏ hàng cũ                                       ║");
                 System.out.println("║>[0]. Đăng xuất                                             ║");
                 System.out.println("╚============================================================╝");
                 System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
@@ -81,7 +81,7 @@ public class RunShopByUser {
 //                        productManager.removeAll(usernameInShop.toString());
                         break;
                     case 7:
-                        oldCartOfUser();
+                        getOldCartOfUser();
                         break;
                     case 0:
                         System.out.println("[\uD83D\uDD10] Đã thoát khỏi hệ thống USER !!!");
@@ -193,11 +193,11 @@ public class RunShopByUser {
     }
 
     //    tính năng đang thử nghiệm:
-    public void oldCartOfUser() {
+    public void getOldCartOfUser() {
         List<Product> temp = (List<Product>) readWriteData.readData(usernameInShop.toString() + ".data");
-        for (Product x : temp
-        ) {
-            x.display();
+        for (Product x:temp
+             ) {
+            productManager.addProduct(x, usernameInShop.toString());
         }
     }
 }

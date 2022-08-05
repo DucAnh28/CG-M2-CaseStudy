@@ -7,17 +7,23 @@ import login.Login;
 import model.product.BeautiStuff;
 import model.product.Book;
 import model.product.DrawStuff;
+import model.product.Product;
+import storage.ReadWriteData;
+import storage.ReadWriteDataBinaryFile;
 import validateConst.Validate;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class RunShopByAdmin {
+    ReadWriteData readWriteData = ReadWriteDataBinaryFile.getInstance();
     private UserManager userManager = new UserManager();
     Validate validate = Validate.getInstance();
     Scanner scanner = new Scanner(System.in);
     Scanner scanner1 = new Scanner(System.in);
     private ProductManager productManager = new ProductManager();
+    StringBuilder nameOfUser1 = new StringBuilder();
 
     public RunShopByAdmin() {
     }
@@ -50,11 +56,19 @@ public class RunShopByAdmin {
                             System.out.println("Sản phẩm bạn cần tìm là: ");
                             productManager.showProductInShopByID(check0);
                             System.out.println("_______________________________");
-                        } else
-                            System.out.println("Không có sản phẩm !!");
+                        } else System.out.println("Không có sản phẩm !!");
                         break;
                     case 3:
                         try {
+                            System.out.print("Nhập username người dùng: ");
+                            String nameOfUser = scanner.nextLine();
+                            nameOfUser1.delete(0,1);
+                            nameOfUser1.append(nameOfUser);
+                            List<Product> temp = readWriteData.readData(nameOfUser1.toString() + ".data") ;
+                            for (Product x : temp) {
+                                productManager.addProduct(x, nameOfUser1.toString() + ".data");
+                            }
+                            productManager.showProductInCart();
                             System.out.print("[\uD83D\uDD0E] Nhập mã ID sản phẩm muốn sửa: ");
                             String id = scanner.nextLine();
                             if (productManager.checkIdOfCart(id) != -1) {
@@ -71,6 +85,15 @@ public class RunShopByAdmin {
                         }
                         break;
                     case 4:
+                        System.out.print("Nhập username người dùng: ");
+                        String nameOfUser = scanner1.nextLine();
+                        nameOfUser1.delete(0,1);
+                        nameOfUser1.append(nameOfUser);
+                        List<Product> temp = readWriteData.readData(nameOfUser1.toString() + ".data") ;
+                        for (Product x : temp) {
+                            productManager.addProduct(x, nameOfUser1.toString() + ".data");
+                        }
+                        productManager.showProductInCart();
                         deleteProductInCart();
                         break;
                     case 5:
@@ -129,7 +152,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập tên tác giả book: ");
                     String author = scanner.nextLine();
                     Book book = new Book(idOfBook, nameBook, priceOfBook, author);
-                    productManager.editProduct(index, book, RunShopByUser.usernameInShop.toString() + ".data");
+                    productManager.editProduct(index, book, nameOfUser1.toString() + ".data");
                     break;
                 case 2:
                     System.out.print("Nhập ID dụng cụ vẽ: ");
@@ -145,7 +168,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập giá dụng cụ vẽ: ");
                     double priceOfDrawS = scanner1.nextDouble();
                     DrawStuff drawStuff = new DrawStuff(idOfDrawStuff, nameDraw, priceOfDrawS);
-                    productManager.editProduct(index, drawStuff, RunShopByUser.usernameInShop.toString() + ".data");
+                    productManager.editProduct(index, drawStuff, nameOfUser1.toString() + ".data");
                     break;
                 case 3:
                     System.out.print("Nhập ID đồ làm đẹp: ");
@@ -161,7 +184,7 @@ public class RunShopByAdmin {
                     System.out.print("Nhập giá đồ làm đẹp: ");
                     double priceOfBeautiStuff = scanner1.nextDouble();
                     BeautiStuff beautiStuff = new BeautiStuff(idOfBeautiStuff, nameBeauti, priceOfBeautiStuff);
-                    productManager.editProduct(index, beautiStuff, RunShopByUser.usernameInShop.toString() + ".data");
+                    productManager.editProduct(index, beautiStuff, nameOfUser1.toString() + ".data");
                     break;
             }
         } catch (InputMismatchException e) {
@@ -187,7 +210,7 @@ public class RunShopByAdmin {
                     String id = scanner.nextLine();
                     if (productManager.checkIdOfCart(id) != -1) {
                         int temp = productManager.checkIdOfCart(id);
-                        productManager.removeProduct(temp, RunShopByUser.usernameInShop + ".data");
+                        productManager.removeProduct(temp, nameOfUser1.toString() + ".data");
                         System.out.println("[\uD83D\uDC4C] Xóa thành công");
                         System.out.println("--------------------------------------");
                     } else if (productManager.checkIdOfCart(id) == -1) {
@@ -233,20 +256,24 @@ public class RunShopByAdmin {
             System.out.print("[\uD83D\uDC4B] Mời bạn nhập lựa chọn: ");
             int choice = Integer.parseInt(scanner.nextLine());
             System.out.print("[\uD83D\uDD0E] Mời bạn nhập vào username: ");
-            String username = scanner1.nextLine();
-            int check = userManager.checkUserName(username);
+            String username123 = scanner1.nextLine();
+            int check = userManager.checkUserName(username123);
             while (check == -1) {
                 System.out.println("Không tồn tại tài khoản !!");
                 System.out.println("Mời bạn nhập lại username: ");
-                username = scanner.nextLine();
-                check = userManager.checkUserName(username);
+                username123 = scanner.nextLine();
+                check = userManager.checkUserName(username123);
             }
             switch (choice) {
                 case 1:
-                    userManager.getNameUser(username);
+                    System.out.println("-------------------------------");
+                    System.out.println(userManager.getNameUser(username123));
+                    System.out.println("________________________________");
                     break;
                 case 2:
-                    userManager.getDetailOfUser(username);
+                    System.out.println("--------------------------------");
+                    System.out.println(userManager.getDetailOfUser(username123));
+                    System.out.println("________________________________");
                     break;
                 case 3:
                     userManager.removeAccountUser(check);

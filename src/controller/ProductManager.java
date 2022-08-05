@@ -30,19 +30,19 @@ public class ProductManager implements Serializable {
         }
     }
 
-    public void showProductInShopByID(int number) {
-        listdatacrawl.get(number).display();
+    public void showProductInShopByID(int index) {
+        listdatacrawl.get(index).display();
     }
 
     public int checkIdOfProductInShop(String id) {
         int check = -1;
         for (int i = 0; i < listdatacrawl.size(); i++) {
-            if (id.equalsIgnoreCase(listdatacrawl.get(i).getID())) {
+            if (id.equals(listdatacrawl.get(i).getID())) {
                 check = i;
                 return check;
             }
         }
-        return -1;
+        return check;
     }
 
     public Product findProductInShop(String id) {
@@ -63,7 +63,7 @@ public class ProductManager implements Serializable {
                 return check;
             }
         }
-        return -1;
+        return check;
     }
 
     public void showProductInCart() {

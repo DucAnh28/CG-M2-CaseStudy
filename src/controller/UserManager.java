@@ -45,12 +45,13 @@ public class UserManager {
     }
 
     public String getNameUser(String username) {
+        int check = 0;
         for (int i = 0; i < listUser.size(); i++) {
             if (username.equals(listUser.get(i).getUsername())) {
-                return listUser.get(i).DetailOfUser();
+                check = i ;
             }
         }
-        return null;
+        return listUser.get(check).DetailOfUser();
     }
 
     public String getDetailOfUser(String username) {
